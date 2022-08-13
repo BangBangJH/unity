@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class SocketController : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class SocketController : MonoBehaviour
     public bool plug = false;
     private float magnetForce = 0.7f;
     private float socket_R = 1f;
+    public VisualEffect spark;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +40,7 @@ public class SocketController : MonoBehaviour
         if(!plug && (socketCenter.position - plugCtr.plugCenter.position).magnitude < magnetForce)
         {
             Debug.Log("plug");
+            spark.SendEvent("Play");
             plugCtr.connection = true;
             plugCtr.obj_R = socket_R;
             plugCtr.PlugIn(gameObject);
