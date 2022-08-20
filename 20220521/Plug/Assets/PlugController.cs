@@ -13,6 +13,7 @@ public class PlugController : MonoBehaviour
     private bool theAir = false;
     public Transform plugCenter;
     public Camera cam;
+    public SceneManagerController sceneCtr;
     private GameObject connectionObj;
 
     public Spline2 spl;
@@ -37,6 +38,7 @@ public class PlugController : MonoBehaviour
     private void Update()
     {
         MouseRay();
+        FallCheck();
     }
     void FixedUpdate()
     {
@@ -44,6 +46,13 @@ public class PlugController : MonoBehaviour
         SplineStart();
     }
 
+    private void FallCheck()
+    {
+       if(transform.position.y <= -20f)
+        {
+            sceneCtr.ReStartStage();
+        }
+    }
     private void MouseRay()
     {
         ray = cam.ScreenPointToRay(Input.mousePosition);

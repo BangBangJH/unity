@@ -2,36 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class blub : MonoBehaviour
+public class blub : SocketController
 {
     [Range(0, 10)]
     public float value = 0f;
     public bool lightBool = false;
-    private Light light;
+    public Light m_light;
     // Start is called before the first frame update
     void Start()
     {
-        light = gameObject.GetComponent<Light>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        PlugIn();
         Lighting();
     }
     
-    public void PlugOut()
+    public override void PlugOut()
     {
+        base.PlugOut();
+        
         StopAllCoroutines();
         StartCoroutine(RemainPower());
         IEnumerator RemainPower()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(10f);
             StartCoroutine(LightOff());
         }
     }
 
-    public void Interact()
+    public override void Interact()
     {
         if(lightBool == true)
         {
@@ -57,7 +60,7 @@ public class blub : MonoBehaviour
 
     private void Lighting()
     {
-        light.intensity = value - 1 + (Mathf.Sin(32 * Time.realtimeSinceStartup) / 10);
+        m_light.intensity = value - 1 + (Mathf.Sin(32 * Time.realtimeSinceStartup) / 10);
     }
 
     IEnumerator LightOn()

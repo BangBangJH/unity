@@ -15,7 +15,7 @@ public class SocketController : MonoBehaviour
     public PlugController plugCtr;
     public SceneManagerController sceneMan;
     public string NextStageName;
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     public bool stageSocket = false;
     public bool plug = false;
@@ -25,7 +25,7 @@ public class SocketController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
+       
         socketName = name.ToString();
     }
 
@@ -58,9 +58,9 @@ public class SocketController : MonoBehaviour
   
         
     }
-    public void PlugOut()
+    public virtual void PlugOut()
     {
-        PlugOut_Addobj();
+        
         transform.Translate(Vector3.forward*2);
         transform.parent = null;
         plug = false;
@@ -72,19 +72,16 @@ public class SocketController : MonoBehaviour
     {
         sceneMan.NextStage(NextStageName);
     }
-    public void Interact()
+    public virtual void Interact()
     {
-        if(socketName == "light")
-        {
-            addObj.GetComponent<blub>().Interact();
-        }
+
     }
-    
-    public void PlugOut_Addobj()
-    {
-        if (socketName == "light")
-        {
-            addObj.GetComponent<blub>().PlugOut();
-        }
-    }
+
+    //public void PlugOut_Addobj()
+    //{
+    //    if (socketName == "light")
+    //    {
+    //        addObj.GetComponent<blub>().PlugOut();
+    //    }
+    //}
 }
